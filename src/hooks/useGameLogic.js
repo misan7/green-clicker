@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 const MAX_LEVEL = 10;
 const BASE_CLICKS_FOR_LEVEL = [0, 3, 8, 15, 25, 40, 60, 85, 115, 150, 200]; // Cumulative clicks needed for each level
@@ -13,13 +13,13 @@ export function useGameLogic() {
 
   // Calculate progress to next level (0 to 1)
   const getProgress = useCallback(() => {
-    if (level >= MAX_LEVEL) return 1;
+    if (gameState === 'WON') return 1;
     const currentLevelStart = BASE_CLICKS_FOR_LEVEL[level - 1] || 0;
     const nextLevelStart = BASE_CLICKS_FOR_LEVEL[level];
     const clicksInLevel = clickCount - currentLevelStart;
     const totalClicksNeeded = nextLevelStart - currentLevelStart;
     return Math.min(clicksInLevel / totalClicksNeeded, 1);
-  }, [clickCount, level]);
+  }, [clickCount, level, gameState]);
 
   const spawnTree = useCallback(() => {
     const id = crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random();
@@ -38,28 +38,37 @@ export function useGameLogic() {
     });
   }, []);
 
+  // Calculate level based on click count to avoid race conditions
+  const calculateLevel = useCallback((clicks) => {
+    if (clicks >= BASE_CLICKS_FOR_LEVEL[MAX_LEVEL]) return MAX_LEVEL;
+    for (let i = MAX_LEVEL - 1; i >= 0; i--) {
+      if (clicks >= BASE_CLICKS_FOR_LEVEL[i]) {
+        return i + 1;
+      }
+    }
+    return 1;
+  }, []);
+
+  // Update level when click count changes
+  useEffect(() => {
+    const newLevel = calculateLevel(clickCount);
+    if (newLevel !== level) {
+      setLevel(newLevel);
+    }
+    
+    // Check for win condition
+    if (newLevel === MAX_LEVEL && clickCount >= BASE_CLICKS_FOR_LEVEL[MAX_LEVEL]) {
+      setGameState('WON');
+    }
+  }, [clickCount, level, calculateLevel]);
+
   const handleClick = useCallback(() => {
     if (gameState !== 'PLAYING') return;
 
     setEcocoins(prev => prev + 1);
-    setClickCount(prev => {
-      const newCount = prev + 1;
-      
-      // Check for level up
-      if (level < MAX_LEVEL && newCount >= BASE_CLICKS_FOR_LEVEL[level]) {
-        setLevel(l => l + 1);
-      }
-      
-      // Check for win condition
-      if (level === MAX_LEVEL && newCount >= BASE_CLICKS_FOR_LEVEL[MAX_LEVEL]) {
-        setGameState('WON');
-      }
-
-      return newCount;
-    });
-
+    setClickCount(prev => prev + 1);
     spawnTree();
-  }, [gameState, level, spawnTree]);
+  }, [gameState, spawnTree]);
 
   const startGame = () => {
     setGameState('PLAYING');

@@ -52,6 +52,7 @@ export function HUD({ ecocoins, progress, level, maxLevel }) {
           overflow: 'hidden'
         }}>
           <motion.div 
+            key={level}
             style={{
               height: '100%',
               background: '#22c55e',
@@ -59,7 +60,7 @@ export function HUD({ ecocoins, progress, level, maxLevel }) {
             }}
             initial={{ width: 0 }}
             animate={{ width: `${progress * 100}%` }}
-            transition={{ type: 'spring', stiffness: 100 }}
+            transition={{ type: 'spring', stiffness: 120, damping: 20 }}
           />
         </div>
       </div>
