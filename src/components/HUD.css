@@ -1,0 +1,60 @@
+.hud-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.hud-coins {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
+}
+
+.hud-coins-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.hud-level {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
+}
+
+.hud-level-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.hud-progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.hud-progress-fill {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 5px;
+}

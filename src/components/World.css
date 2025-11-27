@@ -1,0 +1,25 @@
+.world {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.pollution {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 30%, rgba(50, 40, 30, 0.8) 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.tree-container {
+  position: absolute;
+  z-index: 5;
+}
+
+.tree-sprite {
+  height: auto;
+  width: auto;
+  display: block;
+}
