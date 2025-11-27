@@ -26,8 +26,8 @@ export function useGameLogic() {
     // Random position within 10% to 90% of screen to avoid edges
     const x = 10 + Math.random() * 80;
     const y = 10 + Math.random() * 80;
-    // Random tree type (1-3)
-    const type = Math.floor(Math.random() * 3) + 1;
+    // Random tree type (0-10 for 11 different tree sprites)
+    const type = Math.floor(Math.random() * 11);
     
     setTrees(prev => {
       const newTrees = [...prev, { id, x, y, type }];
