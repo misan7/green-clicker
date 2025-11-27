@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 
 const MAX_LEVEL = 10;
 const BASE_CLICKS_FOR_LEVEL = [0, 3, 8, 15, 25, 40, 60, 85, 115, 150, 200]; // Cumulative clicks needed for each level
-const MAX_TREES = 100;
+const MAX_TREES = 240;
 
 export function useGameLogic() {
   const [gameState, setGameState] = useState('MENU'); // MENU, PLAYING, WON
