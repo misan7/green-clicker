@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 
 const MAX_LEVEL = 10;
 const BASE_CLICKS_FOR_LEVEL = [0, 3, 8, 15, 25, 40, 60, 85, 115, 150, 200]; // Cumulative clicks needed for each level
@@ -49,10 +49,34 @@ export function useGameLogic() {
     return 1;
   }, []);
 
+  const timerRef = useRef(null);
+  const targetLevelRef = useRef(1);
+
   // Update level when click count changes
   useEffect(() => {
     const newLevel = calculateLevel(clickCount);
-    if (newLevel !== level) {
+    
+    if (newLevel > level) {
+      // Level up - delay to allow animation
+      if (timerRef.current && targetLevelRef.current === newLevel) {
+        return; // Already scheduled
+      }
+      
+      if (timerRef.current) clearTimeout(timerRef.current);
+      
+      targetLevelRef.current = newLevel;
+      timerRef.current = setTimeout(() => {
+        setLevel(newLevel);
+        timerRef.current = null;
+      }, 500); // 500ms delay for progress bar animation
+      
+    } else if (newLevel !== level) {
+      // Level down or reset - immediate
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+      targetLevelRef.current = newLevel;
       setLevel(newLevel);
     }
     
