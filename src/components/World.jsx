@@ -1,7 +1,18 @@
 import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
-import { TreePine, TreeDeciduous, Flower2 } from 'lucide-react';
+import tree01 from '../assets/sprites/tree01.png';
+import tree02 from '../assets/sprites/tree02.png';
+import tree03 from '../assets/sprites/tree03.png';
+import tree04 from '../assets/sprites/tree04.png';
+import tree05 from '../assets/sprites/tree05.png';
+import tree06 from '../assets/sprites/tree06.png';
+import tree07 from '../assets/sprites/tree07.png';
+import tree08 from '../assets/sprites/tree08.png';
+import tree09 from '../assets/sprites/tree09.png';
+import tree10 from '../assets/sprites/tree10.png';
+import tree11 from '../assets/sprites/tree11.png';
+import './World.css';
 
-const TREE_ICONS = [TreePine, TreeDeciduous, Flower2];
+const TREE_SPRITES = [tree01, tree02, tree03, tree04, tree05, tree06, tree07, tree08, tree09, tree10, tree11];
 const COLORS = [
   '#e6ccb2', // Desert
   '#ddb892',
@@ -31,46 +42,37 @@ export function World({ trees, level, maxLevel, onClick }) {
       animate={{ backgroundColor }}
       transition={{ duration: 2 }}
       onClick={onClick}
-      style={{
-        position: 'absolute',
-        inset: 0,
-        overflow: 'hidden',
-        cursor: 'pointer'
-      }}
     >
       {/* Pollution Overlay */}
       <motion.div 
         className="pollution"
         animate={{ opacity: pollutionOpacity }}
         transition={{ duration: 2 }}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'radial-gradient(circle, transparent 30%, rgba(50, 40, 30, 0.8) 100%)',
-          pointerEvents: 'none',
-          zIndex: 10
-        }}
       />
 
       {/* Trees */}
       <AnimatePresence>
         {trees.map((tree) => {
-          const Icon = TREE_ICONS[tree.type % TREE_ICONS.length];
+          const treeSprite = TREE_SPRITES[tree.type % TREE_SPRITES.length];
+          const size = 32 + (tree.type * 4);
           return (
             <motion.div
               key={tree.id}
+              className="tree-container"
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', stiffness: 200, damping: 10 }}
               style={{
-                position: 'absolute',
                 left: `${tree.x}%`,
-                top: `${tree.y}%`,
-                color: '#15803d',
-                zIndex: 5
+                top: `${tree.y}%`
               }}
             >
-              <Icon size={32 + (tree.type * 4)} />
+              <img 
+                src={treeSprite} 
+                alt="tree" 
+                className="tree-sprite"
+                style={{ height: size }}
+              />
             </motion.div>
           );
         })}
