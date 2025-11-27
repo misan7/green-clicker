@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { Leaf, Coins } from 'lucide-react';
 import './HUD.css';
 
-export function HUD({ ecocoins, progress, level, maxLevel }) {
+export function HUD({ ecocoins, progress, level, maxLevel, t }) {
   return (
     <div className="hud-container">
       <div className="hud-coins">
@@ -12,7 +12,7 @@ export function HUD({ ecocoins, progress, level, maxLevel }) {
 
       <div className="hud-level">
         <div className="hud-level-header">
-          <span>Level {level} / {maxLevel}</span>
+          <span>{t.level} {level} / {maxLevel}</span>
           <Leaf size={16} color="#22c55e" />
         </div>
         <div className="hud-progress-bar">
