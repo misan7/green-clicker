@@ -15,25 +15,43 @@
   z-index: 100;
 }
 
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .language-selector {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  justify-content: center;
+  gap: 1rem;
+  background: #22c55e;
+  border: none;
+  padding: 1rem;
+  width: 300px;
+  border-radius: 50px;
   color: white;
   cursor: pointer;
   transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
 }
 
 .language-selector:hover {
-  background: rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
+  background: #16a34a;
+}
+
+.flag-icon {
+  width: 40px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.language-text {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 
@@ -52,7 +70,8 @@
 
 .menu-button {
   font-size: 1.5rem;
-  padding: 1rem 3rem;
+  padding: 1rem;
+  width: 300px;
   background: #22c55e;
   color: white;
   border: none;
