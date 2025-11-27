@@ -19,7 +19,7 @@ function App() {
   } = useGameLogic();
 
   return (
-    <div className="app-container" style={{ position: 'relative', width: '100%', height: '100vh' }}>
+    <div className="app-container">
       <World 
         trees={trees} 
         level={level} 
