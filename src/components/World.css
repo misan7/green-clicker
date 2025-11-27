@@ -5,6 +5,20 @@
   cursor: pointer;
 }
 
+.world::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
 .pollution {
   position: absolute;
   inset: 0;
