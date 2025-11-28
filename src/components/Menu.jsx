@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import englishFlag from '../assets/language/english.png';
 import spanishFlag from '../assets/language/spanish.png';
+import frenchFlag from '../assets/language/french.png';
 import './Menu.css';
 
 export function Menu({ onStart, t, language, onToggleLanguage }) {
@@ -69,8 +70,8 @@ export function Menu({ onStart, t, language, onToggleLanguage }) {
           title={t.language}
         >
           <img 
-            src={language === 'en' ? englishFlag : spanishFlag} 
-            alt={language === 'en' ? 'English' : 'Español'} 
+            src={language === 'en' ? englishFlag : language === 'es' ? spanishFlag : frenchFlag} 
+            alt={language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Français'} 
             className="flag-icon"
           />
           <span className="language-text">{language.toUpperCase()}</span>

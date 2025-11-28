@@ -27,7 +27,11 @@ function App() {
   } = useGameLogic();
 
   const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'es' : 'en');
+    setLanguage(prev => {
+      if (prev === 'en') return 'es';
+      if (prev === 'es') return 'fr';
+      return 'en';
+    });
   };
 
   return (
