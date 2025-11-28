@@ -2,12 +2,21 @@ import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { Leaf, Coins } from 'lucide-react';
 import './HUD.css';
 
-export function HUD({ ecocoins, progress, level, maxLevel, t }) {
+export function HUD({ ecocoins, progress, level, maxLevel, t, plantingMode, onTogglePlantingMode }) {
   return (
     <div className="hud-container">
       <div className="hud-coins">
         <Coins color="#eab308" />
         <span className="hud-coins-value">{ecocoins}</span>
+      </div>
+
+      <div className="hud-mode-toggle">
+        <button 
+          className={`mode-button ${plantingMode === 'auto' ? 'active' : ''}`}
+          onClick={onTogglePlantingMode}
+        >
+          {plantingMode === 'auto' ? t.modeAuto : t.modeManual}
+        </button>
       </div>
 
       <div className="hud-level">
