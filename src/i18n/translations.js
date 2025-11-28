@@ -12,7 +12,8 @@ export const translations = {
         step3: "3. Complete level 10 to save the world",
         back: "Back"
       },
-      language: "Language"
+      language: "Language",
+      credits: "Crafted with ❤️ by Sergio Morales"
     },
     hud: {
       level: "Level",
@@ -38,7 +39,8 @@ export const translations = {
         step3: "3. Completa el nivel 10 y salva el mundo",
         back: "Volver"
       },
-      language: "Idioma"
+      language: "Idioma",
+      credits: "Creado con ❤️ por Sergio Morales"
     },
     hud: {
       level: "Nivel",
@@ -64,7 +66,8 @@ export const translations = {
         step3: "3. Complétez le niveau 10 pour sauver le monde",
         back: "Retour"
       },
-      language: "Langue"
+      language: "Langue",
+      credits: "Créé avec ❤️ par Sergio Morales"
     },
     hud: {
       level: "Niveau",
