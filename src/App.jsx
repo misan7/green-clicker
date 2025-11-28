@@ -21,7 +21,9 @@ function App() {
     progress, 
     handleClick, 
     startGame, 
-    resetGame 
+    resetGame,
+    plantingMode,
+    togglePlantingMode
   } = useGameLogic();
 
   const toggleLanguage = () => {
@@ -34,7 +36,8 @@ function App() {
         trees={trees} 
         level={level} 
         maxLevel={maxLevel} 
-        onClick={handleClick} 
+        onClick={handleClick}
+        plantingMode={plantingMode}
       />
 
       <AnimatePresence>
@@ -54,6 +57,8 @@ function App() {
             level={level} 
             maxLevel={maxLevel}
             t={t.hud}
+            plantingMode={plantingMode}
+            onTogglePlantingMode={togglePlantingMode}
           />
         )}
 
