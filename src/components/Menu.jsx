@@ -77,6 +77,8 @@ export function Menu({ onStart, t, language, onToggleLanguage }) {
           <span className="language-text">{language.toUpperCase()}</span>
         </button>
       </div>
+
+      <p className="menu-credits">{t.credits}</p>
     </motion.div>
   );
 }
