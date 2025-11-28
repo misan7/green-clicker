@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import popSound from '../assets/sound/pop.wav';
 
+const popAudio = new Audio(popSound);
+
 const MAX_LEVEL = 10;
 const BASE_CLICKS_FOR_LEVEL = [0, 3, 8, 15, 25, 40, 60, 85, 115, 150, 200]; // Cumulative clicks needed for each level
 const MAX_TREES = 240;
@@ -90,9 +92,9 @@ export function useGameLogic() {
   const handleClick = useCallback(() => {
     if (gameState !== 'PLAYING') return;
 
-    const audio = new Audio(popSound);
-    audio.volume = 0.5; // Set volume to 50% to be pleasant
-    audio.play().catch(e => console.error("Error playing sound:", e));
+    popAudio.currentTime = 0;
+    popAudio.volume = 0.5;
+    popAudio.play().catch(e => console.error("Error playing sound:", e));
 
     setEcocoins(prev => prev + 1);
     setClickCount(prev => prev + 1);
