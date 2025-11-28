@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import './WinScreen.css';
 
-export function WinScreen({ onReset, t }) {
+export function WinScreen({ onReset, t, credits }) {
   return (
     <motion.div 
       className="win-screen"
@@ -16,6 +16,7 @@ export function WinScreen({ onReset, t }) {
       >
         {t.playAgain}
       </button>
+      <p className="win-credits">{credits}</p>
     </motion.div>
   );
 }

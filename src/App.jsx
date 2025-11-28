@@ -70,6 +70,7 @@ function App() {
           <WinScreen 
             onReset={resetGame} 
             t={t.win}
+            credits={t.menu.credits}
           />
         )}
       </AnimatePresence>
