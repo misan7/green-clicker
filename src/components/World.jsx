@@ -27,7 +27,7 @@ const COLORS = [
   '#344e41'  // Lush Green
 ];
 
-export function World({ trees, level, maxLevel, onClick }) {
+export function World({ trees, level, maxLevel, onClick, plantingMode }) {
   // Interpolate color based on level
   // Simple mapping for now, can be smoother with a library but array index is fine
   const colorIndex = Math.min(Math.floor((level / maxLevel) * (COLORS.length - 1)), COLORS.length - 1);
@@ -36,12 +36,23 @@ export function World({ trees, level, maxLevel, onClick }) {
   // Pollution opacity
   const pollutionOpacity = Math.max(0, 1 - (level / maxLevel));
 
+  const handleClick = (e) => {
+    if (plantingMode === 'manual') {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      onClick(x, y);
+    } else {
+      onClick();
+    }
+  };
+
   return (
     <motion.div 
       className="world"
       animate={{ backgroundColor }}
       transition={{ duration: 2 }}
-      onClick={onClick}
+      onClick={handleClick}
     >
       {/* Pollution Overlay */}
       <motion.div 
