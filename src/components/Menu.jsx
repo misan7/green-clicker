@@ -1,9 +1,36 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import englishFlag from '../assets/language/english.png';
 import spanishFlag from '../assets/language/spanish.png';
 import './Menu.css';
 
 export function Menu({ onStart, t, language, onToggleLanguage }) {
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  if (showTutorial) {
+    return (
+      <motion.div 
+        className="menu-screen"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <h2 className="menu-title">{t.tutorial.title}</h2>
+        <div className="tutorial-steps">
+          <p className="tutorial-step">{t.tutorial.step1}</p>
+          <p className="tutorial-step">{t.tutorial.step2}</p>
+          <p className="tutorial-step">{t.tutorial.step3}</p>
+        </div>
+        <button 
+          onClick={() => setShowTutorial(false)}
+          className="menu-button"
+        >
+          {t.tutorial.back}
+        </button>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div 
       className="menu-screen"
@@ -27,6 +54,13 @@ export function Menu({ onStart, t, language, onToggleLanguage }) {
           className="menu-button"
         >
           {t.start}
+        </button>
+
+        <button 
+          onClick={() => setShowTutorial(true)}
+          className="menu-button"
+        >
+          {t.tutorialBtn}
         </button>
 
         <button 
