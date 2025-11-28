@@ -15,7 +15,9 @@ export const translations = {
       language: "Language"
     },
     hud: {
-      level: "Level"
+      level: "Level",
+      modeAuto: "Mode: Auto",
+      modeManual: "Mode: Manual"
     },
     win: {
       title: "Planet Saved!",
@@ -39,7 +41,9 @@ export const translations = {
       language: "Idioma"
     },
     hud: {
-      level: "Nivel"
+      level: "Nivel",
+      modeAuto: "Auto",
+      modeManual: "Manual"
     },
     win: {
       title: "¡Planeta Salvado!",
