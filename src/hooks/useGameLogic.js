@@ -13,6 +13,7 @@ export function useGameLogic() {
   const [clickCount, setClickCount] = useState(0);
   const [level, setLevel] = useState(1);
   const [trees, setTrees] = useState([]);
+  const [plantingMode, setPlantingMode] = useState('auto'); // 'auto' or 'manual'
 
   // Calculate progress to next level (0 to 1)
   const getProgress = useCallback(() => {
@@ -24,11 +25,11 @@ export function useGameLogic() {
     return Math.min(clicksInLevel / totalClicksNeeded, 1);
   }, [clickCount, level, gameState]);
 
-  const spawnTree = useCallback(() => {
+  const spawnTree = useCallback((customX, customY) => {
     const id = crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random();
-    // Random position within 10% to 90% of screen to avoid edges
-    const x = 10 + Math.random() * 80;
-    const y = 10 + Math.random() * 80;
+    // Use custom position if provided (manual mode), otherwise random
+    const x = customX !== undefined ? customX : 10 + Math.random() * 80;
+    const y = customY !== undefined ? customY : 10 + Math.random() * 80;
     // Random tree type (0-10 for 11 different tree sprites)
     const type = Math.floor(Math.random() * 11);
     
@@ -89,7 +90,7 @@ export function useGameLogic() {
     }
   }, [clickCount, level, calculateLevel]);
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback((x, y) => {
     if (gameState !== 'PLAYING') return;
 
     popAudio.currentTime = 0;
@@ -98,7 +99,7 @@ export function useGameLogic() {
 
     setEcocoins(prev => prev + 1);
     setClickCount(prev => prev + 1);
-    spawnTree();
+    spawnTree(x, y);
   }, [gameState, spawnTree]);
 
   const startGame = () => {
@@ -107,6 +108,11 @@ export function useGameLogic() {
     setClickCount(0);
     setLevel(1);
     setTrees([]);
+    setPlantingMode('auto');
+  };
+
+  const togglePlantingMode = () => {
+    setPlantingMode(prev => prev === 'auto' ? 'manual' : 'auto');
   };
 
   const resetGame = () => {
@@ -123,6 +129,8 @@ export function useGameLogic() {
     progress: getProgress(),
     handleClick,
     startGame,
-    resetGame
+    resetGame,
+    plantingMode,
+    togglePlantingMode
   };
 }
