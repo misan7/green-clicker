@@ -13,7 +13,7 @@ export const translations = {
         back: "Back"
       },
       language: "Language",
-      credits: "Crafted with ❤️ by Sergio Morales"
+      credits: "Crafted with ❤️ by Sergio MT"
     },
     hud: {
       level: "Level",
@@ -40,7 +40,7 @@ export const translations = {
         back: "Volver"
       },
       language: "Idioma",
-      credits: "Creado con ❤️ por Sergio Morales"
+      credits: "Creado con ❤️ por Sergio MT"
     },
     hud: {
       level: "Nivel",
@@ -67,7 +67,7 @@ export const translations = {
         back: "Retour"
       },
       language: "Langue",
-      credits: "Créé avec ❤️ par Sergio Morales"
+      credits: "Créé avec ❤️ par Sergio MT"
     },
     hud: {
       level: "Niveau",
