@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import englishFlag from '../assets/language/english.png';
 import spanishFlag from '../assets/language/spanish.png';
@@ -7,6 +7,7 @@ import './Menu.css';
 
 export function Menu({ onStart, t, language, onToggleLanguage }) {
   const [showTutorial, setShowTutorial] = useState(false);
+  const [isFullscreen, setFullscreen] = useState(false)
 
   if (showTutorial) {
     return (
@@ -31,6 +32,15 @@ export function Menu({ onStart, t, language, onToggleLanguage }) {
       </motion.div>
     );
   }
+  
+useEffect(() => {
+  console.log(isFullscreen)
+  if(isFullscreen) {
+    document.documentElement.requestFullscreen()
+  } else if(document.fullscreenElement !== null && !isFullscreen){
+    document.exitFullscreen()
+  }
+}, [isFullscreen])
 
   return (
     <motion.div 
@@ -55,6 +65,13 @@ export function Menu({ onStart, t, language, onToggleLanguage }) {
           className="menu-button"
         >
           {t.start}
+        </button>
+
+        <button 
+          onClick={()=> setFullscreen(!isFullscreen)}
+          className="menu-button"
+        >
+          Fullscreen {isFullscreen ? 'OFF' : 'ON'}
         </button>
 
         <button 
