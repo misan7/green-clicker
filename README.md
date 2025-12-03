@@ -2,7 +2,7 @@
 
 Un juego interactivo de clicker donde transformas un mundo árido y contaminado en un ecosistema vibrante y lleno de vida.
 
-![Version](https://img.shields.io/badge/version-0.0.1-green)
+![Version](https://img.shields.io/badge/version-1.0.0-green)
 ![React](https://img.shields.io/badge/React-19.2.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
