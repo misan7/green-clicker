@@ -1,12 +1,17 @@
+/**
+ * Custom hook for managing game state and logic
+ * Handles game progression, scoring, level transitions, and tree spawning
+ */
 import { useState, useCallback, useEffect, useRef } from 'react';
-import popSound from '../assets/sound/pop.wav';
+import { MAX_LEVEL, BASE_CLICKS_FOR_LEVEL, MAX_TREES } from '../constants';
+import popSound from '@/shared/assets/sounds/pop.wav';
 
 const popAudio = new Audio(popSound);
 
-const MAX_LEVEL = 10;
-const BASE_CLICKS_FOR_LEVEL = [0, 3, 8, 15, 25, 40, 60, 85, 115, 150, 200]; // Cumulative clicks needed for each level
-const MAX_TREES = 240;
-
+/**
+ * Main game logic hook
+ * @returns {Object} Game state and control functions
+ */
 export function useGameLogic() {
   const [gameState, setGameState] = useState('MENU'); // MENU, PLAYING, WON
   const [ecocoins, setEcocoins] = useState(0);
@@ -15,7 +20,9 @@ export function useGameLogic() {
   const [trees, setTrees] = useState([]);
   const [plantingMode, setPlantingMode] = useState('auto'); // 'auto' or 'manual'
 
-  // Calculate progress to next level (0 to 1)
+  /**
+   * Calculate progress to next level (0 to 1)
+   */
   const getProgress = useCallback(() => {
     if (gameState === 'WON') return 1;
     const currentLevelStart = BASE_CLICKS_FOR_LEVEL[level - 1] || 0;
@@ -25,6 +32,11 @@ export function useGameLogic() {
     return Math.min(clicksInLevel / totalClicksNeeded, 1);
   }, [clickCount, level, gameState]);
 
+  /**
+   * Spawn a new tree at given or random coordinates
+   * @param {number} customX - Optional X coordinate (0-100)
+   * @param {number} customY - Optional Y coordinate (0-100)
+   */
   const spawnTree = useCallback((customX, customY) => {
     const id = crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random();
     // Use custom position if provided (manual mode), otherwise random
@@ -42,7 +54,9 @@ export function useGameLogic() {
     });
   }, []);
 
-  // Calculate level based on click count to avoid race conditions
+  /**
+   * Calculate level based on click count to avoid race conditions
+   */
   const calculateLevel = useCallback((clicks) => {
     if (clicks >= BASE_CLICKS_FOR_LEVEL[MAX_LEVEL]) return MAX_LEVEL;
     for (let i = MAX_LEVEL - 1; i >= 0; i--) {
@@ -90,6 +104,9 @@ export function useGameLogic() {
     }
   }, [clickCount, level, calculateLevel]);
 
+  /**
+   * Handle click event - spawn tree and update game state
+   */
   const handleClick = useCallback((x, y) => {
     if (gameState !== 'PLAYING') return;
 
@@ -102,6 +119,9 @@ export function useGameLogic() {
     spawnTree(x, y);
   }, [gameState, spawnTree]);
 
+  /**
+   * Start a new game
+   */
   const startGame = () => {
     setGameState('PLAYING');
     setEcocoins(0);
@@ -111,10 +131,16 @@ export function useGameLogic() {
     setPlantingMode('auto');
   };
 
+  /**
+   * Toggle between auto and manual planting modes
+   */
   const togglePlantingMode = () => {
     setPlantingMode(prev => prev === 'auto' ? 'manual' : 'auto');
   };
 
+  /**
+   * Reset game to menu screen
+   */
   const resetGame = () => {
     setGameState('MENU');
   };
