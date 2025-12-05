@@ -13,7 +13,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('../assets/fondo.jpg');
+  background-image: url('../../../../shared/assets/images/backgrounds/fondo.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
