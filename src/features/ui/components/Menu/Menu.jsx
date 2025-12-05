@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import englishFlag from '@/shared/assets/images/language/english.png';
 import spanishFlag from '@/shared/assets/images/language/spanish.png';
 import frenchFlag from '@/shared/assets/images/language/french.png';
@@ -9,14 +8,17 @@ export function Menu({ onStart, t, language, onToggleLanguage }) {
   const [showTutorial, setShowTutorial] = useState(false);
   const [isFullscreen, setFullscreen] = useState(false)
 
+  useEffect(() => {
+    if(isFullscreen) {
+      document.documentElement.requestFullscreen()
+    } else if(document.fullscreenElement !== null && !isFullscreen){
+      document.exitFullscreen()
+    }
+  }, [isFullscreen])
+
   if (showTutorial) {
     return (
-      <motion.div 
-        className="menu-screen"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
+      <div className="menu-screen">
         <h2 className="menu-title">{t.tutorial.title}</h2>
         <div className="tutorial-steps">
           <p className="tutorial-step">{t.tutorial.step1}</p>
@@ -29,26 +31,12 @@ export function Menu({ onStart, t, language, onToggleLanguage }) {
         >
           {t.tutorial.back}
         </button>
-      </motion.div>
+      </div>
     );
   }
-  
-useEffect(() => {
-  console.log(isFullscreen)
-  if(isFullscreen) {
-    document.documentElement.requestFullscreen()
-  } else if(document.fullscreenElement !== null && !isFullscreen){
-    document.exitFullscreen()
-  }
-}, [isFullscreen])
 
   return (
-    <motion.div 
-      className="menu-screen"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <div className="menu-screen">
       <h1 className="menu-title">{t.title}</h1>
       <p className="menu-description">
         {t.description.split('\n').map((line, i) => (
@@ -96,6 +84,7 @@ useEffect(() => {
       </div>
 
       <p className="menu-credits">{t.credits}</p>
-    </motion.div>
+    </div>
   );
 }
+
