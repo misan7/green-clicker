@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
-import englishFlag from '../assets/language/english.png';
-import spanishFlag from '../assets/language/spanish.png';
-import frenchFlag from '../assets/language/french.png';
+import englishFlag from '@/shared/assets/images/language/english.png';
+import spanishFlag from '@/shared/assets/images/language/spanish.png';
+import frenchFlag from '@/shared/assets/images/language/french.png';
 import './Menu.css';
 
 export function Menu({ onStart, t, language, onToggleLanguage }) {
