@@ -78,27 +78,56 @@ Un juego interactivo de clicker donde transformas un mundo árido y contaminado 
 
 ## 📁 Estructura del proyecto
 
+El proyecto sigue una arquitectura profesional basada en features, optimizada para escalabilidad:
+
 ```
 green-clicker/
 ├── public/
 │   └── vite.svg
 ├── src/
-│   ├── assets/
-│   ├── components/
-│   │   ├── HUD.jsx          # Interfaz de usuario durante el juego
-│   │   ├── Menu.jsx         # Menú principal y tutorial
-│   │   ├── WinScreen.jsx    # Pantalla de victoria
-│   │   └── World.jsx        # Mundo del juego y árboles
-│   ├── hooks/
-│   │   └── useGameLogic.js  # Lógica principal del juego
-│   ├── i18n/
-│   │   └── translations.js  # Traducciones (EN, ES, FR)
-│   ├── App.jsx              # Componente principal
-│   ├── App.css              # Estilos globales
-│   └── main.jsx             # Punto de entrada
+│   ├── app/                      # Componente raíz de la aplicación
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   └── index.js
+│   ├── features/                 # Módulos organizados por funcionalidad
+│   │   ├── game/                 # Lógica y componentes del juego
+│   │   │   ├── components/
+│   │   │   │   ├── World/       # Mundo del juego y árboles
+│   │   │   │   └── HUD/         # Interfaz durante el juego
+│   │   │   ├── hooks/
+│   │   │   │   └── useGameLogic.js  # Lógica principal del juego
+│   │   │   ├── constants/
+│   │   │   │   └── gameConfig.js    # Configuración y constantes
+│   │   │   └── index.js         # Exportación del módulo
+│   │   └── ui/                   # Componentes de interfaz
+│   │       ├── components/
+│   │       │   ├── Menu/         # Menú principal y tutorial
+│   │       │   └── WinScreen/    # Pantalla de victoria
+│   │       └── index.js
+│   ├── shared/                   # Recursos compartidos
+│   │   ├── assets/
+│   │   │   ├── images/           # Sprites, banderas, fondos
+│   │   │   └── sounds/           # Efectos de sonido
+│   │   ├── locales/              # Traducciones (EN, ES, FR)
+│   │   │   ├── en.js
+│   │   │   ├── es.js
+│   │   │   ├── fr.js
+│   │   │   └── translations.js
+│   │   └── styles/               # Estilos globales
+│   ├── utils/                    # Funciones utilitarias
+│   └── main.jsx                  # Punto de entrada
 ├── package.json
+├── vite.config.js                # Configuración con path aliases
 └── README.md
 ```
+
+### Características de la arquitectura
+
+- **Separación por features**: Código organizado por funcionalidad, no por tipo de archivo
+- **Barrel exports**: Cada módulo expone una API clara mediante `index.js`
+- **Path aliases**: Imports limpios usando `@/` en lugar de `../../../`
+- **Colocation**: Componentes y sus estilos CSS en la misma carpeta
+- **Escalabilidad**: Fácil agregar nuevas features sin afectar el código existente
 
 ## 🎨 Características del diseño
 
