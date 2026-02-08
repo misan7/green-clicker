@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { useGameLogic } from '@/features/game';
-import { Menu, WinScreen } from '@/features/ui';
-import { World, HUD } from '@/features/game';
+import { useGameLogic } from '@/features/game/hooks/useGameLogic.js';
+import { Menu } from '@/features/ui/components/Menu/Menu.jsx';
+import { WinScreen } from '@/features/ui/components/WinScreen/WinScreen.jsx';
+import { World } from '@/features/game/components/World/World.jsx';
+import { HUD } from '@/features/game/components/HUD/HUD.jsx';
 import { AnimatePresence } from 'framer-motion';
-import { translations } from '@/shared/locales';
+import { translations } from '@/shared/locales/translations.js';
 import './App.css';
 
 function App() {
