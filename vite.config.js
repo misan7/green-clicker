@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -13,5 +14,10 @@ export default defineConfig({
       '@app': path.resolve(__dirname, './src/app'),
       '@utils': path.resolve(__dirname, './src/utils'),
     }
-  }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './vitest.setup.js',
+  },
 })
