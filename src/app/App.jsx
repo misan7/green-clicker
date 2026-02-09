@@ -1,18 +1,17 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState, lazy, Suspense, useMemo } from 'react';
 import { useGameLogic } from '@/features/game/hooks/useGameLogic.js';
 import { World } from '@/features/game/components/World/World.jsx';
 import { AnimatePresence } from 'framer-motion';
 import { translations } from '@/shared/locales/translations.js';
 import './App.css';
 
-// Lazy load screen components to reduce initial bundle size
 const Menu = lazy(() => import('@/features/ui/components/Menu/Menu.jsx').then(m => ({ default: m.Menu })));
 const WinScreen = lazy(() => import('@/features/ui/components/WinScreen/WinScreen.jsx').then(m => ({ default: m.WinScreen })));
 const HUD = lazy(() => import('@/features/game/components/HUD/HUD.jsx').then(m => ({ default: m.HUD })));
 
 function App() {
   const [language, setLanguage] = useState('en');
-  const t = translations[language];
+  const t = useMemo(() => translations[language], [language]);
 
   const { 
     gameState, 

@@ -3,6 +3,7 @@
  * Main game world that displays trees, background, and pollution effects
  * Color transitions based on level progression
  */
+import { memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { LEVEL_COLORS } from '../../constants';
 import tree01 from '@/shared/assets/images/sprites/tree01.png';
@@ -20,7 +21,7 @@ import './World.css';
 
 const TREE_SPRITES = [tree01, tree02, tree03, tree04, tree05, tree06, tree07, tree08, tree09, tree10, tree11];
 
-export function World({ trees, level, maxLevel, onClick, plantingMode }) {
+export const World = memo(function World({ trees, level, maxLevel, onClick, plantingMode }) {
   // Interpolate color based on level
   const colorIndex = Math.min(Math.floor((level / maxLevel) * (LEVEL_COLORS.length - 1)), LEVEL_COLORS.length - 1);
   const backgroundColor = LEVEL_COLORS[colorIndex];
@@ -82,4 +83,4 @@ export function World({ trees, level, maxLevel, onClick, plantingMode }) {
       </AnimatePresence>
     </motion.div>
   );
-}
+});

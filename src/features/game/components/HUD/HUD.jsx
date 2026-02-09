@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { Leaf, Coins } from 'lucide-react';
 import './HUD.css';
 
-export function HUD({ ecocoins, progress, level, maxLevel, t, plantingMode, onTogglePlantingMode }) {
+export const HUD = memo(function HUD({ ecocoins, progress, level, maxLevel, t, plantingMode, onTogglePlantingMode }) {
   return (
     <div className="hud-container">
       <div className="hud-coins">
@@ -36,4 +37,4 @@ export function HUD({ ecocoins, progress, level, maxLevel, t, plantingMode, onTo
       </div>
     </div>
   );
-}
+});

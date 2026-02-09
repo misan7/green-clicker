@@ -6,7 +6,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { MAX_LEVEL, BASE_CLICKS_FOR_LEVEL, MAX_TREES } from '../constants';
 import popSound from '@/shared/assets/sounds/pop.wav';
 
-const popAudio = new Audio(popSound);
+
 
 /**
  * Main game logic hook
@@ -104,15 +104,27 @@ export function useGameLogic() {
     }
   }, [clickCount, level, calculateLevel]);
 
+  /*
+   * Audio handling - Lazy initialization
+   */
+  const popAudioRef = useRef(null);
+
+  const playPopSound = useCallback(() => {
+    if (!popAudioRef.current) {
+      popAudioRef.current = new Audio(popSound);
+      popAudioRef.current.volume = 0.5;
+    }
+    popAudioRef.current.currentTime = 0;
+    popAudioRef.current.play().catch(e => console.error("Error playing sound:", e));
+  }, []);
+
   /**
    * Handle click event - spawn tree and update game state
    */
   const handleClick = useCallback((x, y) => {
     if (gameState !== 'PLAYING') return;
 
-    popAudio.currentTime = 0;
-    popAudio.volume = 0.5;
-    popAudio.play().catch(e => console.error("Error playing sound:", e));
+    playPopSound();
 
     setEcocoins(prev => prev + 1);
     setClickCount(prev => prev + 1);
