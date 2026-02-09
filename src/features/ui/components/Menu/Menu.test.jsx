@@ -3,22 +3,31 @@ import { Menu } from './Menu';
 import { describe, it, expect, vi } from 'vitest';
 
 describe('Menu', () => {
+  beforeAll(() => {
+    // Mock Fullscreen API
+    document.documentElement.requestFullscreen = vi.fn();
+    document.exitFullscreen = vi.fn();
+  });
   const mockProps = {
     onStart: vi.fn(),
     t: {
       title: 'Green Clicker',
       description: 'Click to plant trees.\nClean the world.',
       start: 'Start Game',
-      tutorial: 'How to Play',
+      tutorialBtn: 'How to Play',
+      tutorial: {
+        title: 'Tutorial',
+        step1: 'Step 1',
+        step2: 'Step 2',
+        step3: 'Step 3',
+        back: 'Back'
+      },
       language: 'Language',
-      fullscreen: 'Fullscreen'
+      fullscreen: 'Fullscreen',
+      credits: 'Credits'
     },
     language: 'en',
-    onLanguageChange: vi.fn(),
-    isTutorialOpen: false,
-    setIsTutorialOpen: vi.fn(),
-    isFullscreen: false,
-    onToggleFullscreen: vi.fn(),
+    onToggleLanguage: vi.fn(),
   };
 
   it('renders menu title and buttons', () => {
@@ -35,10 +44,11 @@ describe('Menu', () => {
     expect(mockProps.onStart).toHaveBeenCalled();
   });
 
-  it('toggles tutorial when button is clicked', () => {
+  it('opens tutorial when button is clicked', () => {
     render(<Menu {...mockProps} />);
     
-    fireEvent.click(screen.getByTitle('How to Play'));
-    expect(mockProps.setIsTutorialOpen).toHaveBeenCalledWith(true);
+    fireEvent.click(screen.getByText('How to Play'));
+    expect(screen.getByText('Tutorial')).toBeInTheDocument();
+    expect(screen.getByText('Step 1')).toBeInTheDocument();
   });
 });
