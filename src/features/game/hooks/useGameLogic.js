@@ -105,17 +105,21 @@ export function useGameLogic() {
   }, [clickCount, level, calculateLevel]);
 
   /*
-   * Audio handling - Lazy initialization
+   * Audio handling - Preload on mount
    */
   const popAudioRef = useRef(null);
 
+  useEffect(() => {
+    popAudioRef.current = new Audio(popSound);
+    popAudioRef.current.volume = 0.5;
+    popAudioRef.current.preload = 'auto'; // Ensure it loads immediately
+  }, []);
+
   const playPopSound = useCallback(() => {
-    if (!popAudioRef.current) {
-      popAudioRef.current = new Audio(popSound);
-      popAudioRef.current.volume = 0.5;
+    if (popAudioRef.current) {
+      popAudioRef.current.currentTime = 0;
+      popAudioRef.current.play().catch(e => console.error("Error playing sound:", e));
     }
-    popAudioRef.current.currentTime = 0;
-    popAudioRef.current.play().catch(e => console.error("Error playing sound:", e));
   }, []);
 
   /**
