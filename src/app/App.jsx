@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { useGameLogic } from '@/features/game/hooks/useGameLogic.js';
-import { Menu } from '@/features/ui/components/Menu/Menu.jsx';
-import { WinScreen } from '@/features/ui/components/WinScreen/WinScreen.jsx';
 import { World } from '@/features/game/components/World/World.jsx';
-import { HUD } from '@/features/game/components/HUD/HUD.jsx';
 import { AnimatePresence } from 'framer-motion';
 import { translations } from '@/shared/locales/translations.js';
 import './App.css';
+
+// Lazy load screen components to reduce initial bundle size
+const Menu = lazy(() => import('@/features/ui/components/Menu/Menu.jsx').then(m => ({ default: m.Menu })));
+const WinScreen = lazy(() => import('@/features/ui/components/WinScreen/WinScreen.jsx').then(m => ({ default: m.WinScreen })));
+const HUD = lazy(() => import('@/features/game/components/HUD/HUD.jsx').then(m => ({ default: m.HUD })));
 
 function App() {
   const [language, setLanguage] = useState('en');
@@ -46,32 +48,38 @@ function App() {
 
       <AnimatePresence>
         {gameState === 'MENU' && (
-          <Menu 
-            onStart={startGame} 
-            t={t.menu} 
-            language={language} 
-            onToggleLanguage={toggleLanguage} 
-          />
+          <Suspense fallback={<div />}>
+            <Menu 
+              onStart={startGame} 
+              t={t.menu} 
+              language={language} 
+              onToggleLanguage={toggleLanguage} 
+            />
+          </Suspense>
         )}
         
         {gameState === 'PLAYING' && (
-          <HUD 
-            ecocoins={ecocoins} 
-            progress={progress} 
-            level={level} 
-            maxLevel={maxLevel}
-            t={t.hud}
-            plantingMode={plantingMode}
-            onTogglePlantingMode={togglePlantingMode}
-          />
+          <Suspense fallback={<div />}>
+            <HUD 
+              ecocoins={ecocoins} 
+              progress={progress} 
+              level={level} 
+              maxLevel={maxLevel}
+              t={t.hud}
+              plantingMode={plantingMode}
+              onTogglePlantingMode={togglePlantingMode}
+            />
+          </Suspense>
         )}
 
         {gameState === 'WON' && (
-          <WinScreen 
-            onReset={resetGame} 
-            t={t.win}
-            credits={t.menu.credits}
-          />
+          <Suspense fallback={<div />}>
+            <WinScreen 
+              onReset={resetGame} 
+              t={t.win}
+              credits={t.menu.credits}
+            />
+          </Suspense>
         )}
       </AnimatePresence>
     </div>
