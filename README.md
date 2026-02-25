@@ -172,4 +172,4 @@ Creado con ❤️ por la naturaleza.
 
 ---
 
-¿Disfrutaste el juego? ¡Dale una ⭐ al repositorio!
+¡Dale una ⭐ al repositorio si disfrutaste del juego!
